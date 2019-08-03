@@ -9,12 +9,16 @@
             "email": "bob@twokings.nl"
         }
     ],
-    "require": {},
+    "require-dev": {
+        "bolt/core": "^4.0.0"
+    },
     "autoload": {
         "psr-4": {
             "BobdenOtter\\WeatherWidget\\": "src/"
         }
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "extra": {
         "entrypoint": "BobdenOtter\\WeatherWidget\\Extension"
     }

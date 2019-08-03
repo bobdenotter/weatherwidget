@@ -4,8 +4,14 @@ declare(strict_types=1);
 
 namespace BobdenOtter\WeatherWidget;
 
+use Bolt\Widget\BaseWidget;
+use Bolt\Widget\CacheAware;
+use Bolt\Widget\CacheTrait;
 use Bolt\Widget\Injector\AdditionalTarget;
 use Bolt\Widget\Injector\RequestZone;
+use Bolt\Widget\StopwatchAware;
+use Bolt\Widget\StopwatchTrait;
+use Bolt\Widget\TwigAware;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
@@ -17,7 +23,7 @@ class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, Stopwat
     protected $name = 'Weather Widget';
     protected $target = AdditionalTarget::WIDGET_BACK_DASHBOARD_ASIDE_TOP;
     protected $priority = 200;
-    protected $template = '@bolt/widgets/weather.twig';
+    protected $template = '@weather-widget/weather.html.twig';
     protected $zone = RequestZone::BACKEND;
     protected $cacheDuration = 1800;
 

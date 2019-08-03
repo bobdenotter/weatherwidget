@@ -14,5 +14,9 @@
         "psr-4": {
             "BobdenOtter\\WeatherWidget\\": "src/"
         }
-    }
+    },
+    "extra": {
+        "entrypoint": "BobdenOtter\\WeatherWidget\\Extension"
+    },
+    "entrypoint": "BobdenOtter\\WeatherWidget\\Extension"
 }

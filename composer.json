@@ -9,5 +9,10 @@
             "email": "bob@twokings.nl"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "BobdenOtter\\WeatherWidget\\": "src/",
+        }
+    }
 }

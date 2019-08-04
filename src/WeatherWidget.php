@@ -27,6 +27,7 @@ class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, Stopwat
     protected $zone = RequestZone::BACKEND;
     protected $cacheDuration = 1800;
 
+    protected $location = '';
     public function run(array $params = []): ?string
     {
         $weather = $this->getWeather();
@@ -40,7 +41,7 @@ class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, Stopwat
 
     private function getWeather(): array
     {
-        $url = 'wttr.in/?format=%c|%C|%h|%t|%w|%l|%m|%M|%p|%P';
+        $url = 'wttr.in/' . $this->location .  '?format=%c|%C|%h|%t|%w|%l|%m|%M|%p|%P';
 
         $details = [];
 
@@ -55,5 +56,9 @@ class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, Stopwat
         }
 
         return $details;
+    }
+    public function setLocation(string $location): void
+    {
+        $this->location = $location;
     }
 }

@@ -15,11 +15,6 @@ class Extension extends BaseExtension
 
     public function initialize(): void
     {
-        $config = $this->getConfig();
-
-        $widget = new WeatherWidget();
-        $widget->setLocation($config->get('location'));
-
-        $this->widgets->registerWidget($widget);
+        $this->registerWidget(new WeatherWidget());
     }
 }

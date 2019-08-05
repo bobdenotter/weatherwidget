@@ -64,6 +64,6 @@ class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, Stopwat
             return '';
         }
 
-        return $this->extension->getConfig()->get('location', '');
+        return (string) $this->extension->getConfig()->get('location');
     }
 }

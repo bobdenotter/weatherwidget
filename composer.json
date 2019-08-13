@@ -1,6 +1,6 @@
 {
     "name": "bobdenotter/weatherwidget",
-    "description": "A simple Dashboard Widget that displays the current weather. So you don't actually need to go outside or open the curtains.",
+    "description": "🌤 A simple Dashboard Widget that displays the current weather. So you don't actually need to go outside or open the curtains.",
     "type": "bolt-extension",
     "license": "MIT",
     "authors": [

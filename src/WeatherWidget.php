@@ -46,7 +46,7 @@ class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, Stopwat
 
         try {
             $client = HttpClient::create();
-            $result = $client->request('GET', $url)->getContent();
+            $result = $client->request('GET', $url, ['timeout' => 2.5])->getContent();
             if (mb_substr_count($result, '|') === 9) {
                 $details = explode('|', trim($result));
             }

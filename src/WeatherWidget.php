@@ -50,7 +50,7 @@ class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, Stopwat
             if (mb_substr_count($result, '|') === 9) {
                 $details = explode('|', trim($result));
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             // Do nothing, fall through to empty array
         }
 

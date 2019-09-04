@@ -25,8 +25,8 @@ class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, Stopwat
     protected $template = '@weather-widget/weather.html.twig';
     protected $zone = RequestZone::BACKEND;
     protected $cacheDuration = 1800;
-
     protected $location = '';
+
     public function run(array $params = []): ?string
     {
         $weather = $this->getWeather();

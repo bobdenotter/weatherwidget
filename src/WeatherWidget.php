@@ -40,7 +40,7 @@ class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, Stopwat
 
     private function getWeather(): array
     {
-        $url = 'http://wttr.in/' . $this->getLocation() .  '?format=%c|%C|%h|%t|%w|%l|%m|%M|%p|%P';
+        $url = 'https://wttr.in/' . $this->getLocation() .  '?format=%c|%C|%h|%t|%w|%l|%m|%M|%p|%P';
 
         $details = [];
 

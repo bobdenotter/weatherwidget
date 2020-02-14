@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace BobdenOtter\WeatherWidget;
 
 use Bolt\Widget\BaseWidget;
-use Bolt\Widget\CacheAware;
+use Bolt\Widget\CacheAwareInterface;
 use Bolt\Widget\CacheTrait;
 use Bolt\Widget\Injector\AdditionalTarget;
 use Bolt\Widget\Injector\RequestZone;
-use Bolt\Widget\StopwatchAware;
+use Bolt\Widget\StopwatchAwareInterface;
 use Bolt\Widget\StopwatchTrait;
-use Bolt\Widget\TwigAware;
+use Bolt\Widget\TwigAwareInterface;
 use Symfony\Component\HttpClient\HttpClient;
 
-class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, StopwatchAware
+class WeatherWidget extends BaseWidget implements TwigAwareInterface, CacheAwareInterface, StopwatchAwareInterface
 {
     use CacheTrait;
     use StopwatchTrait;

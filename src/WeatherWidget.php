@@ -5,17 +5,16 @@ declare(strict_types=1);
 namespace BobdenOtter\WeatherWidget;
 
 use Bolt\Widget\BaseWidget;
-use Bolt\Widget\CacheAware;
+use Bolt\Widget\CacheAwareInterface;
 use Bolt\Widget\CacheTrait;
 use Bolt\Widget\Injector\AdditionalTarget;
 use Bolt\Widget\Injector\RequestZone;
-use Bolt\Widget\StopwatchAware;
+use Bolt\Widget\StopwatchAwareInterface;
 use Bolt\Widget\StopwatchTrait;
-use Bolt\Widget\TwigAware;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
+use Bolt\Widget\TwigAwareInterface;
+use Symfony\Component\HttpClient\HttpClient;
 
-class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, StopwatchAware
+class WeatherWidget extends BaseWidget implements TwigAwareInterface, CacheAwareInterface, StopwatchAwareInterface
 {
     use CacheTrait;
     use StopwatchTrait;
@@ -26,8 +25,8 @@ class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, Stopwat
     protected $template = '@weather-widget/weather.html.twig';
     protected $zone = RequestZone::BACKEND;
     protected $cacheDuration = 1800;
-
     protected $location = '';
+
     public function run(array $params = []): ?string
     {
         $weather = $this->getWeather();
@@ -41,24 +40,30 @@ class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, Stopwat
 
     private function getWeather(): array
     {
-        $url = 'wttr.in/' . $this->location .  '?format=%c|%C|%h|%t|%w|%l|%m|%M|%p|%P';
+        $url = 'https://wttr.in/' . $this->getLocation() .  '?format=%c|%C|%h|%t|%w|%l|%m|%M|%p|%P';
 
         $details = [];
 
         try {
-            $client = new Client();
-            $result = $client->request('GET', $url)->getBody()->getContents();
+            $client = HttpClient::create();
+            $result = $client->request('GET', $url, ['timeout' => 6])->getContent();
             if (mb_substr_count($result, '|') === 9) {
                 $details = explode('|', trim($result));
             }
-        } catch (RequestException $e) {
+        } catch (\Exception $e) {
+            dump($this->getName() . " exception: " . $e->getMessage());
             // Do nothing, fall through to empty array
         }
 
         return $details;
     }
-    public function setLocation(string $location): void
+
+    private function getLocation(): string
     {
-        $this->location = $location;
+        if (! $this->extension) {
+            return '';
+        }
+
+        return (string) $this->extension->getConfig()->get('location');
     }
 }

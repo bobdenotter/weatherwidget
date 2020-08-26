@@ -42,16 +42,19 @@ class WeatherWidget extends BaseWidget implements TwigAwareInterface, CacheAware
     {
         $url = 'https://wttr.in/' . $this->getLocation() .  '?format=%c|%C|%h|%t|%w|%l|%m|%M|%p|%P';
 
+        $curlOptions = $this->getExtension()->getBoltConfig()->get('general/curl_options', [])->all();
+        $curlOptions['timeout'] = 6;
+
         $details = [];
 
         try {
             $client = HttpClient::create();
-            $result = $client->request('GET', $url, ['timeout' => 6])->getContent();
+            $result = $client->request('GET', $url, $curlOptions)->getContent();
             if (mb_substr_count($result, '|') === 9) {
                 $details = explode('|', trim($result));
             }
-        } catch (\Exception $e) {
-            dump($this->getName() . " exception: " . $e->getMessage());
+        } catch (\Throwable $e) {
+            dump($this->getName() . ' exception: ' . $e->getMessage());
             // Do nothing, fall through to empty array
         }
 
